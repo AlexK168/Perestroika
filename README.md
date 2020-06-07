@@ -2,4 +2,4 @@
 OOP project
 
 Build your future during perestroika
-Perestrika! Glasnost'! Demokratizatsia!
+Perestroika! Glasnost'! Demokratizatsia!
