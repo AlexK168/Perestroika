@@ -8,7 +8,7 @@ from settings import Settings
 from block import Block
 from glob import GlobalState
 from truck import Truck
-
+import decorators
 
 
 def check_keydown_events(event, bracing, blocks, tower, builder, block):
@@ -77,6 +77,7 @@ def check_collisions(blocks):
             GlobalState().falling = False
 
 
+@decorators.decorator
 def check_game(bracing, blocks, tower, builder, block):
     if GlobalState().over and not GlobalState().falling:  # resetting
         bracing.moving_left = False
@@ -86,13 +87,8 @@ def check_game(bracing, blocks, tower, builder, block):
             tower.pop()
             blocks.remove(blocks.sprites()[0])
         GlobalState().blocked = False
-        GlobalState().falling = False
+        # GlobalState().falling = False
         block.make_static()
-        score = GlobalState().score
-        GlobalState().score = 0
-        return score
-
-    return None
 
 
 def normalize_tower(blocks):
@@ -139,8 +135,7 @@ def check_events(bracing, blocks, tower, builder, block, trucks, button):
         GlobalState().blocked = True
         GlobalState().over = True
     check_limit(blocks, tower)
-    var = check_game(bracing, blocks, tower, builder, block)
-    return var
+    check_game(bracing, blocks, tower, builder, block)
 
 
 def update_screen(screen, bracing, blocks, builder, block, trucks, button):

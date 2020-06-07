@@ -27,13 +27,13 @@ def run_game():
     pygame.mixer.init()
     ai_settings = Settings()
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
-    pygame.mixer.music.load('sounds/bg_music.mp3')
+    pygame.mixer.music.load('sounds/bg_music2.mp3')
     pygame.mixer.music.play()
-    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.set_volume(0.5)
     pygame.display.set_caption("Perestroika")
 
     bracing = Bracing(screen)
-    GlobalState(bracing)
+    GlobalState()
     blocks = Group()
     tower = Tower()
     trucks = Group()
@@ -42,18 +42,14 @@ def run_game():
         record = r
     if record is None:
         record = Record(user="user", score=0)
-    record.save()
-
+        record.save()
+    GlobalState().record = record
     builder = Builder(screen)
     block = Block(bracing)
     block.make_static()
     button = Button(screen)
     while True:
-        var = gf.check_events(bracing, blocks, tower, builder, block, trucks, button)
-        if var is not None and var > record.score:
-            record.score = var
-            print(var)
-            record.save()
+        gf.check_events(bracing, blocks, tower, builder, block, trucks, button)
         builder.update()
         bracing.update()
         blocks.update(bracing)

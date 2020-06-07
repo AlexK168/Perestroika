@@ -2,8 +2,8 @@ from singleton import Singleton
 
 
 class GlobalState(metaclass=Singleton):
-    def __init__(self, bracing):
-        self.y0 = bracing.rect.bottom
+    def __init__(self):
+        self.y0 = 298
         self.acceleration = 500
         self.bracing_speed = 5
         self.spawn_latency = 3
@@ -16,3 +16,4 @@ class GlobalState(metaclass=Singleton):
         self.over = True
         self.ticks = 0
         self.ctrl_is_down = False
+        self.record = None
